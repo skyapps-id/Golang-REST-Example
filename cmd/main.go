@@ -9,6 +9,8 @@ import (
 	"golang-rest-example/shared/config"
 	"log"
 
+	"github.com/gin-contrib/cors"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -40,6 +42,7 @@ func main() {
 	bookController := controller.NewBookController(bookService)
 
 	r := gin.Default()
+	r.Use(cors.Default())
 
 	v1 := r.Group("/v1")
 

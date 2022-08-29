@@ -1,0 +1,255 @@
+openapi: '3.0.3'
+info:
+  title: Book REST Example
+  description: "Documentation REST API Book"
+  version: '1.0'
+servers:
+  - url: http://localhost:3000/v1
+paths:
+  /books:
+    post:
+      summary: Create book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Inspiration Quotes by Aji
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 200
+                  message:
+                    type: string
+                    example: success
+                  data:
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      title:
+                        type: string
+                        example: Inspiration Quotes by Aji
+                      created_at:
+                        type: string
+                        example: 2022-08-30T01:04:26.862+07:00
+                      updated_at:
+                        type: string
+                        example: 2022-08-30T01:04:26.862+07:00
+    get:
+      summary: Get book all
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 200
+                  message:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          example: 1
+                        title:
+                          type: string
+                          example: Inspiration Quotes by Aji
+                  
+  /books/{bookId}:
+    get:
+      summary: Get book by id
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          description: ID Book.
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 200
+                  message:
+                    type: string
+                    example: success
+                  data:
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      title:
+                        type: string
+                        example: Inspiration Quotes by Aji
+                      created_at:
+                        type: string
+                        example: 2022-08-30T01:04:26.862+07:00
+                      updated_at:
+                        type: string
+                        example: 2022-08-30T01:07:34.824+07:00
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 404
+                  message:
+                    type: string
+                    example: failed
+                  error:
+                    type: string
+                    example: record not found
+    put:
+      summary: Update book
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          description: ID Book.
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Inspiration Quotes by Aji
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 200
+                  message:
+                    type: string
+                    example: success
+                  data:
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      title:
+                        type: string
+                        example: Inspiration Quotes by Aji
+                      created_at:
+                        type: string
+                        example: 2022-08-30T01:04:26.862+07:00
+                      updated_at:
+                        type: string
+                        example: 2022-08-30T01:07:34.824+07:00
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 404
+                  message:
+                    type: string
+                    example: failed
+                  error:
+                    type: string
+                    example: record not found
+    delete:
+      summary: Delete book
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          description: ID Book.
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 200
+                  message:
+                    type: string
+                    example: success
+                  data:
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      title:
+                        type: string
+                        example: Inspiration Quotes by Aji
+                      created_at:
+                        type: string
+                        example: 2022-08-30T01:04:26.862+07:00
+                      updated_at:
+                        type: string
+                        example: 2022-08-30T01:07:34.824+07:00
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 404
+                  message:
+                    type: string
+                    example: failed
+                  error:
+                    type: string
+                    example: record not found
+
+                    
