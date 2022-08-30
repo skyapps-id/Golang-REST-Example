@@ -7,6 +7,7 @@ import (
 	"golang-rest-example/service"
 	"golang-rest-example/shared"
 	"golang-rest-example/shared/config"
+	"golang-rest-example/shared/middleware"
 	"log"
 
 	"github.com/gin-contrib/cors"
@@ -35,6 +36,7 @@ func init() {
 func main() {
 	// Common Module
 	deps := shared.NewDeps(cfg)
+	middleware := middleware.NewMiddlewares()
 
 	// Book Module
 	bookRepository := repository.NewBookRepository(db)
@@ -42,11 +44,16 @@ func main() {
 	bookController := controller.NewBookController(bookService)
 
 	r := gin.Default()
-	r.Use(cors.Default())
+
+	cfgCors := cors.DefaultConfig()
+	cfgCors.AllowAllOrigins = true
+	cfgCors.AllowCredentials = true
+	cfgCors.AddAllowHeaders("authorization")
+	r.Use(cors.New(cfgCors))
 
 	v1 := r.Group("/v1")
 
-	book := v1.Group("/books")
+	book := v1.Group("/books", middleware.Authenticate)
 	{
 		book.POST("", bookController.Create)
 		book.GET("", bookController.Fatch)

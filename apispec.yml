@@ -5,6 +5,14 @@ info:
   version: '1.0'
 servers:
   - url: http://localhost:3000/v1
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: authorization
+security:
+  - ApiKeyAuth: []
 paths:
   /books:
     post:
@@ -47,6 +55,22 @@ paths:
                       updated_at:
                         type: string
                         example: 2022-08-30T01:04:26.862+07:00
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 401
+                  message:
+                    type: string
+                    example: failed
+                  error:
+                    type: string
+                    example: invalid signature
     get:
       summary: Get book all
       responses:
@@ -74,6 +98,22 @@ paths:
                         title:
                           type: string
                           example: Inspiration Quotes by Aji
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 401
+                  message:
+                    type: string
+                    example: failed
+                  error:
+                    type: string
+                    example: invalid signature
                   
   /books/{bookId}:
     get:
@@ -115,6 +155,22 @@ paths:
                       updated_at:
                         type: string
                         example: 2022-08-30T01:07:34.824+07:00
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 401
+                  message:
+                    type: string
+                    example: failed
+                  error:
+                    type: string
+                    example: invalid signature
         '404':
           description: Not Found
           content:
@@ -180,6 +236,22 @@ paths:
                       updated_at:
                         type: string
                         example: 2022-08-30T01:07:34.824+07:00
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 401
+                  message:
+                    type: string
+                    example: failed
+                  error:
+                    type: string
+                    example: invalid signature
         '404':
           description: Not Found
           content:
@@ -235,6 +307,22 @@ paths:
                       updated_at:
                         type: string
                         example: 2022-08-30T01:07:34.824+07:00
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 401
+                  message:
+                    type: string
+                    example: failed
+                  error:
+                    type: string
+                    example: invalid signature
         '404':
           description: Not Found
           content:

@@ -6,28 +6,28 @@ import (
 )
 
 var (
-	//ErrAuthPrixaRequestInvalidSourceHeader is
-	ErrAuthPrixaRequestInvalidSourceHeader = func() error {
-		return errors.ErrBase.New("invalid header x-source").WithProperty(errors.ErrCodeProperty, 2201).WithProperty(errors.ErrHttpCodeProperty, http.StatusUnauthorized)
+	//ErrAuthRequestInvalidSourceHeader is
+	ErrAuthRequestInvalidSourceHeader = func() error {
+		return errors.ErrBase.New("invalid header x-source").WithProperty(errors.ErrCodeProperty, 400).WithProperty(errors.ErrHttpCodeProperty, http.StatusUnauthorized)
 	}
 
-	//ErrAuthPrixaRequestInvalidTimestampHeader is
-	ErrAuthPrixaRequestInvalidTimestampHeader = func() error {
-		return errors.ErrBase.New("invalid header x-timestamp").WithProperty(errors.ErrCodeProperty, 2202).WithProperty(errors.ErrHttpCodeProperty, http.StatusUnauthorized)
+	//ErrAuthRequestInvalidTimestampHeader is
+	ErrAuthRequestInvalidTimestampHeader = func() error {
+		return errors.ErrBase.New("invalid header x-timestamp").WithProperty(errors.ErrCodeProperty, 400).WithProperty(errors.ErrHttpCodeProperty, http.StatusUnauthorized)
 	}
 
-	//ErrAuthPrixaRequestExpired is
-	ErrAuthPrixaRequestExpired = func() error {
-		return errors.ErrBase.New("request is expired").WithProperty(errors.ErrCodeProperty, 2203).WithProperty(errors.ErrHttpCodeProperty, http.StatusUnauthorized)
+	//ErrAuthRequestExpired is
+	ErrAuthRequestExpired = func() error {
+		return errors.ErrBase.New("request is expired").WithProperty(errors.ErrCodeProperty, 401).WithProperty(errors.ErrHttpCodeProperty, http.StatusUnauthorized)
 	}
 
-	//ErrAuthPrixaRequestInvalidSignature is
-	ErrAuthPrixaRequestInvalidSignature = func() error {
-		return errors.ErrBase.New("invalid signature").WithProperty(errors.ErrCodeProperty, 2203).WithProperty(errors.ErrHttpCodeProperty, http.StatusUnauthorized)
+	//ErrAuthRequestInvalidSignature is
+	ErrAuthRequestInvalidSignature = func() error {
+		return errors.ErrBase.New("invalid signature").WithProperty(errors.ErrCodeProperty, 401).WithProperty(errors.ErrHttpCodeProperty, http.StatusUnauthorized)
 	}
 
-	//ErrAuthPrixaRequestData is
-	ErrAuthPrixaRequestData = func() error {
+	//ErrAuthRequestData is
+	ErrAuthRequestData = func() error {
 		return errors.ErrBase.New("user not have permission").WithProperty(errors.ErrCodeProperty, http.StatusForbidden).WithProperty(errors.ErrHttpCodeProperty, http.StatusForbidden)
 	}
 
