@@ -6,27 +6,78 @@ info:
 servers:
   - url: http://localhost:3000/v1
 components:
+  schemas:
+    DtoCreateOrUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Inspiration Quotes by Aji
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: number
+                example: 401
+              message:
+                type: string
+                example: failed
+              error:
+                type: string
+                example: invalid signature
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: number
+                example: 404
+              message:
+                type: string
+                example: failed
+              error:
+                type: string
+                example: record not found
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: number
+                example: 500
+              message:
+                type: string
+                example: failed
+              error:
+                type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       in: header
       name: authorization
-security:
-  - ApiKeyAuth: []
 paths:
   /books:
     post:
       summary: Create book
+      security:
+        - ApiKeyAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                  example: Inspiration Quotes by Aji
+              $ref: "#/components/schemas/DtoCreateOrUpdate"
       responses:
         '201':
           description: Success
@@ -56,23 +107,13 @@ paths:
                         type: string
                         example: 2022-08-30T01:04:26.862+07:00
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: number
-                    example: 401
-                  message:
-                    type: string
-                    example: failed
-                  error:
-                    type: string
-                    example: invalid signature
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalServerError"
     get:
       summary: Get book all
+      security:
+        - ApiKeyAuth: []
       responses:
         '200':
           description: Success
@@ -99,25 +140,15 @@ paths:
                           type: string
                           example: Inspiration Quotes by Aji
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: number
-                    example: 401
-                  message:
-                    type: string
-                    example: failed
-                  error:
-                    type: string
-                    example: invalid signature
-                  
+          $ref: "#/components/responses/Unauthorized"
+        '500':
+          $ref: "#/components/responses/InternalServerError"
+
   /books/{bookId}:
     get:
       summary: Get book by id
+      security:
+        - ApiKeyAuth: []
       parameters:
         - name: bookId
           in: path
@@ -156,39 +187,15 @@ paths:
                         type: string
                         example: 2022-08-30T01:07:34.824+07:00
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: number
-                    example: 401
-                  message:
-                    type: string
-                    example: failed
-                  error:
-                    type: string
-                    example: invalid signature
+          $ref: "#/components/responses/Unauthorized"
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: number
-                    example: 404
-                  message:
-                    type: string
-                    example: failed
-                  error:
-                    type: string
-                    example: record not found
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/InternalServerError"
     put:
       summary: Update book
+      security:
+        - ApiKeyAuth: []
       parameters:
         - name: bookId
           in: path
@@ -237,39 +244,15 @@ paths:
                         type: string
                         example: 2022-08-30T01:07:34.824+07:00
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: number
-                    example: 401
-                  message:
-                    type: string
-                    example: failed
-                  error:
-                    type: string
-                    example: invalid signature
+          $ref: "#/components/responses/Unauthorized"
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: number
-                    example: 404
-                  message:
-                    type: string
-                    example: failed
-                  error:
-                    type: string
-                    example: record not found
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/InternalServerError"
     delete:
       summary: Delete book
+      security:
+        - ApiKeyAuth: []
       parameters:
         - name: bookId
           in: path
@@ -308,36 +291,10 @@ paths:
                         type: string
                         example: 2022-08-30T01:07:34.824+07:00
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: number
-                    example: 401
-                  message:
-                    type: string
-                    example: failed
-                  error:
-                    type: string
-                    example: invalid signature
+          $ref: "#/components/responses/Unauthorized"
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: number
-                    example: 404
-                  message:
-                    type: string
-                    example: failed
-                  error:
-                    type: string
-                    example: record not found
+          $ref: "#/components/responses/NotFound"
+        '500':
+          $ref: "#/components/responses/InternalServerError"
 
                     
