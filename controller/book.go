@@ -30,7 +30,7 @@ func (c *BookController) Create(ctx *gin.Context) {
 		return
 	}
 
-	result, err := c.services.Create(req)
+	result, err := c.services.Create(msctx, req)
 	if err != nil {
 		msctx.Fail(err)
 		return
@@ -41,7 +41,7 @@ func (c *BookController) Create(ctx *gin.Context) {
 
 func (c *BookController) Fatch(ctx *gin.Context) {
 	var msctx = utils.NewMsContext(ctx)
-	results, err := c.services.Fatch()
+	results, err := c.services.Fatch(msctx)
 	if err != nil {
 		msctx.Fail(err)
 		return
@@ -55,7 +55,7 @@ func (c *BookController) FatchByID(ctx *gin.Context) {
 		ID    = ctx.Param("id")
 		msctx = utils.NewMsContext(ctx)
 	)
-	result, err := c.services.FatchByID(ID)
+	result, err := c.services.FatchByID(msctx, ID)
 	if err != nil {
 		msctx.Fail(err)
 		return
@@ -76,7 +76,7 @@ func (c *BookController) Update(ctx *gin.Context) {
 		return
 	}
 
-	result, err := c.services.Update(ID, req)
+	result, err := c.services.Update(msctx, ID, req)
 	if err != nil {
 		msctx.Fail(err)
 		return
@@ -91,7 +91,7 @@ func (c *BookController) Delete(ctx *gin.Context) {
 		msctx = utils.NewMsContext(ctx)
 	)
 
-	result, err := c.services.Delete(ID)
+	result, err := c.services.Delete(msctx, ID)
 	if err != nil {
 		msctx.Fail(err)
 		return

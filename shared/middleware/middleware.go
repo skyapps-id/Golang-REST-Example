@@ -29,6 +29,7 @@ func (mw *middlewaresInst) Authenticate(ctx *gin.Context) {
 	)
 
 	if apiKey == "123" {
+		ctx.Set("username", "ajiedafuq")
 		ctx.Next()
 	} else {
 		msctx.Fail(internal_const.ErrAuthRequestInvalidSignature())
