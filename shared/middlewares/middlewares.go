@@ -1,4 +1,4 @@
-package middleware
+package middlewares
 
 import (
 	"golang-rest-example/shared/internal_const"

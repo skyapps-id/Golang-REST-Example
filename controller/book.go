@@ -19,6 +19,18 @@ func NewBookController(services service.BookService) *BookController {
 	return &BookController{services: services}
 }
 
+// Create godoc
+// @Tags Book
+// @ID create-book
+// @Summary Create Book
+// @Description Create book
+// @Accept  json
+// @Produce  json
+// @Param Body body dto.BookRequest true "Body"
+// @Success 201 {object} utils.Success{data=dto.BookResponse}
+// @Failure 400,404 {object} utils.Failed
+// @Router /books [post]
+// @Security Authorization
 func (c *BookController) Create(ctx *gin.Context) {
 	var (
 		req   dto.BookRequest
@@ -39,6 +51,17 @@ func (c *BookController) Create(ctx *gin.Context) {
 	msctx.Success(result)
 }
 
+// Fatch godoc
+// @Tags Book
+// @ID get-book-all
+// @Summary Get Book All
+// @Description Get book All
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} utils.Success{data=[]dto.BookResponses}
+// @Failure 400,404 {object} utils.Failed
+// @Router /books [get]
+// @Security Authorization
 func (c *BookController) Fatch(ctx *gin.Context) {
 	var msctx = utils.NewMsContext(ctx)
 	results, err := c.services.Fatch(msctx)
@@ -50,6 +73,18 @@ func (c *BookController) Fatch(ctx *gin.Context) {
 	msctx.Success(results)
 }
 
+// FatchByID godoc
+// @Tags Book
+// @ID get-book-byid
+// @Summary Get Book
+// @Description Get book
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} utils.Success{data=dto.BookResponse}
+// @Failure 400,404 {object} utils.Failed
+// @Param id path string true "id request"
+// @Router /books/{id} [get]
+// @Security Authorization
 func (c *BookController) FatchByID(ctx *gin.Context) {
 	var (
 		ID    = ctx.Param("id")
@@ -64,6 +99,19 @@ func (c *BookController) FatchByID(ctx *gin.Context) {
 	msctx.Success(result)
 }
 
+// Update godoc
+// @Tags Book
+// @ID update-book
+// @Summary Update Book
+// @Description Update book
+// @Accept  json
+// @Produce  json
+// @Param Body body dto.BookRequest true "Body"
+// @Success 200 {object} utils.Success{data=dto.BookResponse}
+// @Failure 400,404 {object} utils.Failed
+// @Param id path string true "id request"
+// @Router /books/{id} [put]
+// @Security Authorization
 func (c *BookController) Update(ctx *gin.Context) {
 	var (
 		ID    = ctx.Param("id")
@@ -85,6 +133,18 @@ func (c *BookController) Update(ctx *gin.Context) {
 	msctx.Success(result)
 }
 
+// Update Delete
+// @Tags Book
+// @ID delete-book
+// @Summary Delete Book
+// @Description Delete book
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} utils.Success{data=dto.BookResponse}
+// @Failure 400,404 {object} utils.Failed
+// @Param id path string true "id request"
+// @Router /books/{id} [delete]
+// @Security Authorization
 func (c *BookController) Delete(ctx *gin.Context) {
 	var (
 		ID    = ctx.Param("id")

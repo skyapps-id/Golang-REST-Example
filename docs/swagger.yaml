@@ -1,0 +1,250 @@
+basePath: /v1
+definitions:
+  dto.BookRequest:
+    properties:
+      title:
+        type: string
+    required:
+    - title
+    type: object
+  dto.BookResponse:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dto.BookResponses:
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+  utils.Failed:
+    properties:
+      code:
+        type: integer
+      error:
+        type: string
+      message:
+        type: string
+    type: object
+  utils.Success:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+      meta: {}
+    type: object
+host: localhost:3000
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: Documentation REST API Book
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Book REST Example
+  version: "1.0"
+paths:
+  /books:
+    get:
+      consumes:
+      - application/json
+      description: Get book All
+      operationId: get-book-all
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.BookResponses'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Failed'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Failed'
+      security:
+      - Authorization: []
+      summary: Get Book All
+      tags:
+      - Book
+    post:
+      consumes:
+      - application/json
+      description: Create book
+      operationId: create-book
+      parameters:
+      - description: Body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.BookRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.BookResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Failed'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Failed'
+      security:
+      - Authorization: []
+      summary: Create Book
+      tags:
+      - Book
+  /books/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete book
+      operationId: delete-book
+      parameters:
+      - description: id request
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.BookResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Failed'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Failed'
+      security:
+      - Authorization: []
+      summary: Delete Book
+      tags:
+      - Book
+    get:
+      consumes:
+      - application/json
+      description: Get book
+      operationId: get-book-byid
+      parameters:
+      - description: id request
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.BookResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Failed'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Failed'
+      security:
+      - Authorization: []
+      summary: Get Book
+      tags:
+      - Book
+    put:
+      consumes:
+      - application/json
+      description: Update book
+      operationId: update-book
+      parameters:
+      - description: Body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.BookRequest'
+      - description: id request
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.BookResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Failed'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Failed'
+      security:
+      - Authorization: []
+      summary: Update Book
+      tags:
+      - Book
+securityDefinitions:
+  Authorization:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

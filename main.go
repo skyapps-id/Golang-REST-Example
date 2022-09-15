@@ -7,8 +7,13 @@ import (
 	"golang-rest-example/service"
 	"golang-rest-example/shared"
 	"golang-rest-example/shared/config"
-	"golang-rest-example/shared/middleware"
+	"golang-rest-example/shared/middlewares"
 	"log"
+
+	_ "golang-rest-example/docs"
+
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 
 	"github.com/gin-contrib/cors"
 
@@ -33,10 +38,28 @@ func init() {
 	}
 }
 
+// @title Book REST Example
+// @version 1.0
+// @description Documentation REST API Book
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name API Support
+// @contact.url http://www.swagger.io/support
+// @contact.email support@swagger.io
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host localhost:3000
+// @BasePath /v1
+
+// @securityDefinitions.apikey Authorization
+// @in header
+// @name Authorization
 func main() {
 	// Common Module
 	deps := shared.NewDeps(cfg)
-	middleware := middleware.NewMiddlewares()
+	middlewares := middlewares.NewMiddlewares()
 
 	// Book Module
 	bookRepository := repository.NewBookRepository(db)
@@ -51,9 +74,11 @@ func main() {
 	cfgCors.AddAllowHeaders("authorization")
 	r.Use(cors.New(cfgCors))
 
+	r.Any("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 	v1 := r.Group("/v1")
 
-	book := v1.Group("/books", middleware.Authenticate)
+	book := v1.Group("/books", middlewares.Authenticate)
 	{
 		book.POST("", bookController.Create)
 		book.GET("", bookController.Fatch)
